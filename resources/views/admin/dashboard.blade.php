@@ -106,8 +106,6 @@
                     <div>
                         <h6 class="font-weight-bold mb-2 mb-lg-0">Historical Analytics</h6>
                     </div>
-                    <div class="font-22 ms-auto"><i class="bx bx-dots-horizontal-rounded"></i>
-                    </div>
                 </div>
             </div>
             <div class="card-body">
@@ -177,16 +175,6 @@
                     <div>
                         <h6 class="font-weight-bold mb-0">Order Status</h6>
                     </div>
-                    <div class="dropdown ms-auto">
-                        <div class="cursor-pointer text-dark font-24 dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown"><i class="bx bx-dots-horizontal-rounded"></i>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="javaScript:;">Action</a>
-                            <a class="dropdown-item" href="javaScript:;">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="javaScript:;">Something else here</a>
-                        </div>
-                    </div>
                 </div>
                 <div id="chart4"></div>
                 <div class="d-flex align-items-center justify-content-between text-center">
@@ -251,16 +239,6 @@
             <div class="d-flex align-items-center">
                 <div>
                     <h6 class="font-weight-bold mb-0">Best Selling Products</h6>
-                </div>
-                <div class="dropdown ms-auto">
-                    <div class="cursor-pointer text-dark font-24 dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown"><i class="bx bx-dots-horizontal-rounded"></i>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="javaScript:;">Action</a>
-                        <a class="dropdown-item" href="javaScript:;">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javaScript:;">Something else here</a>
-                    </div>
                 </div>
             </div>
            </div>
@@ -373,16 +351,6 @@
                 <div>
                     <h6 class="font-weight-bold mb-0">Recent Reviews</h6>
                 </div>
-                <div class="dropdown ms-auto">
-                    <div class="cursor-pointer text-dark font-24 dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown"><i class="bx bx-dots-horizontal-rounded"></i>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="javaScript:;">Action</a>
-                        <a class="dropdown-item" href="javaScript:;">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javaScript:;">Something else here</a>
-                    </div>
-                </div>
             </div>
           </div>
             <div class="recent-reviews p-3 mb-3">
@@ -475,16 +443,6 @@
             <div class="d-flex align-items-center">
                 <div>
                     <h6 class="font-weight-bold mb-0">Support Inbox</h6>
-                </div>
-                <div class="dropdown ms-auto">
-                    <div class="cursor-pointer text-dark font-24 dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown"><i class="bx bx-dots-horizontal-rounded"></i>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="javaScript:;">Action</a>
-                        <a class="dropdown-item" href="javaScript:;">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="javaScript:;">Something else here</a>
-                    </div>
                 </div>
              </div>
             </div>

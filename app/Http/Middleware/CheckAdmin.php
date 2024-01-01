@@ -19,7 +19,7 @@ class CheckAdmin
             return $next($request);
         }
 
-        return redirect()->route('admin.login')->with('info', 'You are not authorized.');
+        return redirect()->route('admin.login')->with('status', 'You are not authorized.');
 
     }
 }

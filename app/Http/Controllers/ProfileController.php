@@ -2,46 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
+    public function profileUpdate(Request $request) {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['nullable', 'string', 'min:11'],
+            'gender' => ['nullable'],
+            'date_of_birth' => ['nullable', 'date'],
+            'address' => ['nullable', 'string', ],
+            'profile_photo' => ['nullable', 'image', 'mimes:png,jpg,jpeg'],
         ]);
 
-        $user = $request->user();
+        Auth::user()->update($request->except('profile_photo'));
 
-        Auth::logout();
+        // Profile Photo Upload
+        // if($request->hasFile('profile_photo')){
+        //     if(Auth::user()->profile_photo != 'default_profile_photo.png'){
+        //         unlink(base_path("public/uploads/profile_photo/").Auth::user()->profile_photo);
+        //     }
+        //     $profile_photo_name = Auth::user()->id."-Profile-Photo".".". $request->file('profile_photo')->getClientOriginalExtension();
+        //     $upload_link = base_path("public/uploads/profile_photo/").$profile_photo_name;
+        //     Image::make($request->file('profile_photo'))->resize(120, 120)->save($upload_link);
+        //     Auth::user()->update([
+        //         'profile_photo' => $profile_photo_name
+        //     ]);
+        // }
 
-        $user->delete();
+        $notification = array(
+            'message' => 'Profile updated successfully.',
+            'alert-type' => 'success'
+        );
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        return back()->with($notification);
+    }
 
-        return Redirect::to('/');
+    public function passwordUpdate(Request $request) {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+            'password_confirmation' => ['required', Password::defaults()],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        $notification = array(
+            'message' => 'Password updated successfully.',
+            'alert-type' => 'success'
+        );
+
+        return back()->with($notification);
     }
 }

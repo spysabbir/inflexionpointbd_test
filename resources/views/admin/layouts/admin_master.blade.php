@@ -24,6 +24,11 @@
 	<link rel="stylesheet" href="{{ asset('admin') }}/css/dark-theme.css" />
 	<link rel="stylesheet" href="{{ asset('admin') }}/css/semi-dark.css" />
 	<link rel="stylesheet" href="{{ asset('admin') }}/css/header-colors.css" />
+	<!--plugins-->
+    <link href="{{ asset('admin') }}/plugins/toastr/toastr.css" rel="stylesheet">
+    <link href="{{ asset('admin') }}/plugins/summernote/summernote.min.css" rel="stylesheet">
+    <link href="{{ asset('admin') }}/plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+	<!--title-->
 	<title>{{ env('APP_NAME') }} – @yield('title')</title>
 </head>
 
@@ -40,7 +45,8 @@
 				<div>
 					<h4 class="logo-text">{{ env('APP_NAME') }}</h4>
 				</div>
-				<div class="toggle-icon ms-auto"><i class='bx bx-first-page'></i>
+				<div class="toggle-icon ms-auto">
+                    <i class='bx bx-first-page'></i>
 				</div>
 			</div>
 			<!--navigation-->
@@ -60,7 +66,7 @@
 					<div class="top-menu-left d-none d-lg-block">
 						<ul class="nav">
 						  <li class="nav-item">
-							<a class="nav-link" href="app-emailbox.html"><i class='bx bx-envelope'></i></a>
+							<a class="nav-link" href="#"><i class='bx bx-envelope'></i></a>
 						  </li>
 					  </ul>
 					</div>
@@ -163,7 +169,7 @@
                                 <a class="dropdown-item" href="{{ route('admin.profile') }}"><i class="bx bx-user"></i><span>Profile</span></a>
 							</li>
 							<li>
-                                <a class="dropdown-item" href="javascript:;"><i class="bx bx-cog"></i><span>Settings</span></a>
+                                <a class="dropdown-item" href="{{ route('admin.setting') }}"><i class="bx bx-cog"></i><span>Settings</span></a>
 							</li>
 							<li>
 								<div class="dropdown-divider mb-0"></div>
@@ -316,6 +322,34 @@
 	</script>
 	<!--app JS-->
 	<script src="{{ asset('admin') }}/js/app.js"></script>
+
+    <script src="{{ asset('admin') }}/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('admin') }}/plugins/summernote/summernote.min.js"></script>
+    <script src="{{ asset('admin') }}/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            @if(Session::has('message'))
+                var type = "{{ Session::get('alert-type', 'info') }}";
+                switch(type){
+                    case 'info':
+                        toastr.info("{{ Session::get('message') }}");
+                        break;
+
+                    case 'warning':
+                        toastr.warning("{{ Session::get('message') }}");
+                        break;
+
+                    case 'success':
+                        toastr.success("{{ Session::get('message') }}");
+                        break;
+
+                    case 'error':
+                        toastr.error("{{ Session::get('message') }}");
+                        break;
+                }
+            @endif
+        });
+    </script>
 
     @yield('script')
 </body>
