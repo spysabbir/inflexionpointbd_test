@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ProfileController extends Controller
 {
@@ -22,17 +24,22 @@ class ProfileController extends Controller
         Auth::user()->update($request->except('profile_photo'));
 
         // Profile Photo Upload
-        // if($request->hasFile('profile_photo')){
-        //     if(Auth::user()->profile_photo != 'default_profile_photo.png'){
-        //         unlink(base_path("public/uploads/profile_photo/").Auth::user()->profile_photo);
-        //     }
-        //     $profile_photo_name = Auth::user()->id."-Profile-Photo".".". $request->file('profile_photo')->getClientOriginalExtension();
-        //     $upload_link = base_path("public/uploads/profile_photo/").$profile_photo_name;
-        //     Image::make($request->file('profile_photo'))->resize(120, 120)->save($upload_link);
-        //     Auth::user()->update([
-        //         'profile_photo' => $profile_photo_name
-        //     ]);
-        // }
+        if($request->hasFile('profile_photo')){
+            if(Auth::user()->profile_photo != 'default_profile_photo.png'){
+                unlink(base_path("public/uploads/profile_photo/").Auth::user()->profile_photo);
+            }
+            $profile_photo_name = Auth::user()->id."-Profile-Photo".".". $request->file('profile_photo')->getClientOriginalExtension();
+            $upload_link = base_path("public/uploads/profile_photo/").$profile_photo_name;
+
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($request->file('profile_photo'));
+            $image->resize(120, 120);
+            $image->save($upload_link);
+
+            Auth::user()->update([
+                'profile_photo' => $profile_photo_name
+            ]);
+        }
 
         $notification = array(
             'message' => 'Profile updated successfully.',

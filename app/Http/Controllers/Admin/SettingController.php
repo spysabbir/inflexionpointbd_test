@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\DefaultSetting;
 use App\Models\MailSetting;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class SettingController extends Controller
 {
@@ -47,8 +49,8 @@ class SettingController extends Controller
             'address' => 'required',
         ]);
 
-        $this->changeEnv("APP_NAME", "'$request->app_name'");
-        $this->changeEnv("APP_URL", "'$request->app_url'");
+        // $this->changeEnv("APP_NAME", "'$request->app_name'");
+        // $this->changeEnv("APP_URL", "'$request->app_url'");
 
         $defaultSetting = DefaultSetting::where('id', $id)->first();
 
@@ -73,9 +75,15 @@ class SettingController extends Controller
             if($defaultSetting->logo != 'default_logo.png'){
                 unlink(base_path("public/uploads/default_photo/").$defaultSetting->logo);
             }
+
             $logo_name = "Logo".".". $request->file('logo')->getClientOriginalExtension();
             $upload_link = base_path("public/uploads/default_photo/").$logo_name;
-            Image::make($request->file('logo'))->resize(192, 40)->save($upload_link);
+
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($request->file('logo'));
+            $image->resize(120, 80);
+            $image->save($upload_link);
+
             $defaultSetting->update([
                 'logo' => $logo_name
             ]);
@@ -88,7 +96,12 @@ class SettingController extends Controller
             }
             $favicon_name = "Favicon".".". $request->file('favicon')->getClientOriginalExtension();
             $upload_link = base_path("public/uploads/default_photo/").$favicon_name;
-            Image::make($request->file('favicon'))->resize(70, 70)->save($upload_link);
+
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($request->file('favicon'));
+            $image->resize(80, 80);
+            $image->save($upload_link);
+
             $defaultSetting->update([
                 'favicon' => $favicon_name
             ]);

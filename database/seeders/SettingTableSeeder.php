@@ -17,7 +17,7 @@ class SettingTableSeeder extends Seeder
         DefaultSetting::create([
             'app_name' => 'Laravel',
             'app_url' => 'http://127.0.0.1:8000',
-            'favicon' => 'default_favicon.ico',
+            'favicon' => 'default_favicon.png',
             'logo' => 'default_logo.png',
             'main_phone_number' => '0123456789',
             'main_email' => 'mail@gmail.com',

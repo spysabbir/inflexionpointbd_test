@@ -29,7 +29,7 @@
                             <strong>Default Setting Updated</strong>
                         </div>
                         @endif
-                        <form method="post" action="{{ route('admin.default.setting.update', $defaultSetting->id) }}">
+                        <form method="post" action="{{ route('admin.default.setting.update', $defaultSetting->id) }}" enctype="multipart/form-data" >
                             @csrf
                             @method('patch')
                             <div class="row">
